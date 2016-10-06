@@ -19,7 +19,7 @@ var ScrollHandler = {
         ScrollHandler.element.trigger('ScrollHandler-Scroll')
         //On Scroll Stop
         clearTimeout(ScrollHandler.onStopTimer);
-        ScrollHandler.onStopTimer = setTimeout(ScrollHandler.onScrollStop, 500);
+        ScrollHandler.onStopTimer = setTimeout(ScrollHandler.onScrollStop, 300);
     },
     onScrollStop: function() {
         ScrollHandler.element.trigger('ScrollHandler-ScrollStop');
