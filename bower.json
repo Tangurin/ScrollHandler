@@ -1,0 +1,23 @@
+{
+  "name": "ScrollHandler",
+  "main": "ScrollHandler.js",
+  "homepage": "https://github.com/Tangurin/ScrollHandler",
+  "authors": [
+    "Albert <albert@engvie.se>"
+  ],
+  "description": "JavaScript Class handling all scroll events in one place.",
+  "keywords": [
+    "Scroll",
+    "Event",
+    "Handler"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
