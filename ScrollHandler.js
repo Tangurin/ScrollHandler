@@ -1,11 +1,12 @@
-var ScrollHandler = {
+    var ScrollHandler = {
     active: false,
     element: null,
     scrollEvent: null,
-    onStopTimer: null,
+    onEndWaitTime: 300,
+    onEndTimer: null,
     callbacks: {
         onScroll: [],
-        onScrollStop: [],
+        onScrollEnd: [],
     },
     initialize: function($element) {
         if (ScrollHandler.active == true) {
@@ -15,41 +16,45 @@ var ScrollHandler = {
         ScrollHandler.setElement($element);
         
         ScrollHandler.active = true;
-        $(document).trigger('ScrollHandler-Initialized')
     },
-    onScroll: function() {
-        ScrollHandler.element.trigger('ScrollHandler-Scroll')
-        //On Scroll Stop
-        clearTimeout(ScrollHandler.onStopTimer);
-        ScrollHandler.onStopTimer = setTimeout(ScrollHandler.onScrollStop, 300);
+    triggered: function(event) {
+        var $this = $(this);
+        var callbacks = ScrollHandler.callbacks;
 
-        var callbacks = ScrollHandler.callbacks.onScroll;
-        for (var i in callbacks) {
-            callbacks[i](ScrollHandler.element);
+        //onScroll
+        for (var i in callbacks.onScroll) {
+            callbacks.onScroll[i]($this, event);
+        }
+
+        //onScrollEnd
+        clearTimeout(ScrollHandler.onEndTimer);
+        ScrollHandler.onEndTimer = setTimeout(function() {
+            for (var i in callbacks.onScrollEnd) {
+                callbacks.onScrollEnd[i]($this, event);
+            }
+        }, ScrollHandler.onEndWaitTime);
+    },
+    onScroll: function(callback) {
+        if (typeof callback == 'function') {
+            ScrollHandler.callbacks.onScroll.push(callback);
         }
     },
-    onScrollStop: function() {
-        ScrollHandler.element.trigger('ScrollHandler-ScrollStop');
-        var callbacks = ScrollHandler.callbacks.onScrollStop;
-        for (var i in callbacks) {
-            callbacks[i](ScrollHandler.element);
+    onScrollEnd: function(callback) {
+        if (typeof callback == 'function') {
+            ScrollHandler.callbacks.onScrollEnd.push(callback);
         }
     },
     bindScrollEvent: function() {
-        ScrollHandler.element.on('scroll', ScrollHandler.onScroll);
+        ScrollHandler.element.on('scroll', ScrollHandler.triggered);
     },
     unbindScrollEvent: function() {
         ScrollHandler.element.unbind('scroll');
     },
     setElement: function(element) {
-        ScrollHandler.unbindScrollEvent();
+        if (ScrollHandler.element != null) {
+            ScrollHandler.unbindScrollEvent();
+        }
         ScrollHandler.element = element;
         ScrollHandler.bindScrollEvent();
-    },
-    callback: function(callback, type) {
-        var type = type || 'onScroll';
-        if (typeof callback == 'function' && typeof ScrollHandler.callbacks[type] != 'undefined') {
-            ScrollHandler.callbacks[type].push(callback);
-        }
     }
 };
