@@ -34,14 +34,22 @@ var ScrollHandler = {
             }
         }, ScrollHandler.onEndWaitTime);
     },
-    onScroll: function(callback) {
+    onScroll: function(callback, run) {
+        var run = run || false;
         if (typeof callback == 'function') {
             ScrollHandler.callbacks.onScroll.push(callback);
+            if (run) {
+                callback(ScrollHandler.element);
+            }
         }
     },
-    onScrollEnd: function(callback) {
+    onScrollEnd: function(callback, run) {
+        var run = run || false;
         if (typeof callback == 'function') {
             ScrollHandler.callbacks.onScrollEnd.push(callback);
+            if (run) {
+                callback(ScrollHandler.element);
+            }
         }
     },
     bindScrollEvent: function() {
