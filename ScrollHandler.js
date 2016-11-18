@@ -1,4 +1,4 @@
-    var ScrollHandler = {
+var ScrollHandler = {
     active: false,
     element: null,
     scrollEvent: null,
