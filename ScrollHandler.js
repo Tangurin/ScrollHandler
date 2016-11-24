@@ -42,7 +42,7 @@
             var run = run || false;
             if (typeof callback == 'function') {
                 ScrollHandler.callbacks.onScroll.push(callback);
-                if (run) {
+                if (run === true) {
                     callback(ScrollHandler.element);
                 }
             }
@@ -51,7 +51,7 @@
             var run = run || false;
             if (typeof callback == 'function') {
                 ScrollHandler.callbacks.onScrollEnd.push(callback);
-                if (run) {
+                if (run === true) {
                     callback(ScrollHandler.element);
                 }
             }
