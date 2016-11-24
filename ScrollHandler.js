@@ -6,7 +6,6 @@
     var ScrollHandler = {
         active: false,
         element: null,
-        scrollEvent: null,
         onEndWaitTime: 300,
         onEndTimer: null,
         callbacks: {
