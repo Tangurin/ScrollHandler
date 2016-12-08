@@ -16,7 +16,6 @@
             if (ScrollHandler.active == true) {
                 return true;
             }
-
             ScrollHandler.setElement($element);
             
             ScrollHandler.active = true;
@@ -39,18 +38,18 @@
             }, ScrollHandler.onEndWaitTime);
         },
         onScroll: function(callback, run) {
-            var run = run || false;
-            if (typeof callback == 'function') {
-                ScrollHandler.callbacks.onScroll.push(callback);
-                if (run === true) {
-                    callback(ScrollHandler.element);
-                }
-            }
+            ScrollHandler.addCallback('onScroll', callback, run)
         },
         onScrollEnd: function(callback, run) {
+            ScrollHandler.addCallback('onScrollEnd', callback, run)
+        },
+        addCallback: function(method, callback, run) {
             var run = run || false;
+            if (ScrollHandler.active === false)  {
+                console.log('You must initialize ScrollHandler before adding a callback');
+            }
             if (typeof callback == 'function') {
-                ScrollHandler.callbacks.onScrollEnd.push(callback);
+                ScrollHandler.callbacks[method].push(callback);
                 if (run === true) {
                     callback(ScrollHandler.element);
                 }
