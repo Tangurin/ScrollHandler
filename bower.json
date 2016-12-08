@@ -11,6 +11,9 @@
     "Event",
     "Handler"
   ],
+  "dependencies": {
+    "jquery": ">=1.7.1"
+  },
   "license": "MIT",
   "private": true,
   "ignore": [
