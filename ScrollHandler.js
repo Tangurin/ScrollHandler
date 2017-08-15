@@ -61,6 +61,9 @@
         unbindScrollEvent: function() {
             ScrollHandler.element.unbind('scroll');
         },
+        getElement: function() {
+            return ScrollHandler.element;
+        },
         setElement: function(element) {
             if (ScrollHandler.element != null) {
                 ScrollHandler.unbindScrollEvent();
